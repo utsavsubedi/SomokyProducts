@@ -1,0 +1,7 @@
+{% autoescape off %}
+Hi {{user.first_name}},
+Please click link below to confirm your registation at The Root Level.
+http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+
+If you think this is not you. Please ignore this email.
+{% endautoescape %}

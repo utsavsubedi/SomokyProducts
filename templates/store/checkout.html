@@ -1,0 +1,399 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- <section class="section-content padding-y bg"> -->
+  <!-- <div class="container"> -->
+{% if user.is_profile_completed %}
+    <!-- Default switch -->
+    <div class="custom-control custom-switch " style="position: absolute; margin-top: 1.0rem; margin-left: 6rem;">
+      <input type="checkbox" class="custom-control-input" id="customSwitches">
+      <label class="custom-control-label" for="customSwitches">Use Default Address</label>
+    </div>
+
+{% endif %}
+    <!-- <div class="form-check" style="position: absolute; margin-top: 1.0rem; margin-left: 6rem;">
+      <input class="form-check-input" type="checkbox" value="ram" id="flexCheckIndeterminate">
+      <label class="form-check-label" for="flexCheckIndeterminate">
+        Use Default Address
+      </label>
+    </div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+
+<!-- </section> -->
+
+<div class="default-address">
+
+  <section class="section-content padding-y bg-light">
+    <div class="container">
+    
+    <!-- ============================ COMPONENT 1 ================================= -->
+    
+    <div class="row">
+      <aside class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title mb-4">Billing Address</h4>
+        
+    
+        <form action="{% url 'place_order' %}" method="POST">
+          {% csrf_token %}
+    
+    
+          
+          
+          <!-- New Adress  -->
+          <!-- <div class="new-address"> -->
+            <div class="form-row">
+                <div class="col form-group">
+                  <label for="">First Name</label>
+                  <input type="text" name="first_name" class="form-control" placeholder="{{ user.first_name }}" value="{{ user.first_name }}" required>
+                </div>
+                <div class="col form-group">
+                  <label for="">Last Name</label>
+                  <input type="text" name="last_name" class="form-control" placeholder="{{ user.last_name }}" value="{{user.last_name}}" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col form-group">
+                  <label for="">Email</label>
+                  <input type="email" name="email" class="form-control" placeholder="{{user.email}}" value="{{ user.email }}"  required>
+                </div>
+                <div class="col form-group">
+                  <label for="">Phone Number</label>
+                  <input type="text" name="phone" class="form-control" placeholder="{{user.phone_number}}" value="{{ user.phone_number }}" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col form-group">
+                  <label for="">Address Line 1</label>
+                  <input type="text" name="address_line_1" class="form-control" placeholder="{{user.address_line_1}}" value="{{ user.address_line_1}}" required>
+                </div>
+                <div class="col form-group">
+                  <label for="">Address Line 2</label>
+                  <input type="text" name="address_line_2" class="form-control" placeholder="{{user.address_line_2}}" value="{{ user.address_line_2 }}">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col form-group">
+                  <label for="">City</label>
+                  <input type="text" name="city" class="form-control" placeholder="{{user.city}}" value="{{user.city}}" required>
+                </div>
+                <div class="col form-group">
+                  <label for="">State</label>
+                  <select name="state" id="state" class="form-control" >
+                    <option value="{{user.state}}" selected>{{user.state}}</option>
+                  </select>
+                </div>
+                <div class="col form-group">
+                  <label for="">Country</label>
+                  <input placeholder="{{user.country}}"   type="text" name="country" value="{{user.country}}" class="form-control" required >
+                </div>
+                </div>
+            
+            <div class="form-row">
+              <label for="">Order Note</label>
+              <textarea name="order_note" rows="2" class="form-control"></textarea>
+            </div>
+      </div>
+    </div> <!-- card.// -->
+    
+      </aside> <!-- col.// -->
+      <aside class="col-lg-6">
+    
+        <div class="card">
+        <div class="card-body">
+          <table class="table table-borderless table-shopping-cart">
+          <thead class="text-muted">
+          <tr class="small text-uppercase">
+            <th scope="col">Product</th>
+            <th scope="col" width="120">Quantity</th>
+            <th scope="col" width="120">Price</th>
+    
+          </tr>
+          </thead>
+          <tbody>
+    
+          {% for cart_item in cart_items %}
+          <tr>
+            <td>
+              <figure class="itemside align-items-center">
+                <div class="aside"><img src="{{ cart_item.product.image.url }}" class="img-sm"></div>
+                <figcaption class="info">
+                  <a href="{{ cart_item.product.get_url }}" class="title text-dark">{{ cart_item.product.product_name }}</a>
+                  <p class="text-muted small">
+                    {% if cart_item.variations.all %}
+                      {% for item in cart_item.variations.all %}
+                        {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                      {% endfor %}
+                    {% endif %}
+                  </p>
+                </figcaption>
+              </figure>
+            </td>
+            <td>
+              <!-- col.// -->
+                  <label for="">{{cart_item.quantity}}</label>
+            </td>
+            <td>
+              <div class="price-wrap">
+                <var class="price">$ {{ cart_item.sub_total }}</var>
+                <small class="text-muted"> $ {{ cart_item.product.price }} each </small>
+              </div> <!-- price-wrap .// -->
+            </td>
+    
+          </tr>
+          {% endfor %}
+    
+          </tbody>
+          </table>
+    
+          <button type="submit" name="submit" class="btn btn-primary btn-block">Place Order</button>
+          <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
+          </form>
+        </div> <!-- card-body.// -->
+        </div> <!-- card.// -->
+    
+    
+    </aside> <!-- col.// -->
+    
+    
+    </div> <!-- row.// -->
+    
+    <!-- ============================ COMPONENT 1 END .// ================================= -->
+    
+    </div> <!-- container .//  -->
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+</div>
+
+
+
+<div class="new-address">
+
+  <section class="section-content padding-y bg-light">
+    <div class="container">
+    
+    <!-- ============================ COMPONENT 1 ================================= -->
+    
+    <div class="row">
+      <aside class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title mb-4">Billing Address</h4>
+        
+    
+        <form action="{% url 'place_order' %}" method="POST">
+          {% csrf_token %}
+    
+    
+          
+              
+    
+          <!-- New Adress  -->
+          <!-- <div class="new-address"> -->
+          <div class="form-row">
+            <div class="col form-group">
+              <label for="">First Name</label>
+              <input type="text" name="first_name" class="form-control" required>
+            </div>
+            <div class="col form-group">
+              <label for="">Last Name</label>
+              <input type="text" name="last_name" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group">
+              <label for="">Email</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="col form-group">
+              <label for="">Phone Number</label>
+              <input type="text" name="phone" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group">
+              <label for="">Address Line 1</label>
+              <input type="text" name="address_line_1" class="form-control" required>
+            </div>
+            <div class="col form-group">
+              <label for="">Address Line 2</label>
+              <input type="text" name="address_line_2" class="form-control">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col form-group">
+              <label for="">City</label>
+              <input type="text" name="city" class="form-control" required>
+            </div>
+            <div class="col form-group">
+              <label for="">State</label>
+              <select name="state" id="state" class="form-control">
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="DC">District Of Columbia</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option>
+                <option value="MD">Maryland</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MI">Michigan</option>
+                <option value="MN">Minnesota</option>
+                <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option>
+                <option value="MT">Montana</option>
+                <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="NY">New York</option>
+                <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option>
+                <option value="OH">Ohio</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option>
+                <option value="UT">Utah</option>
+                <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option>
+                <option value="WA">Washington</option>
+                <option value="WV">West Virginia</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+              </select>
+            </div>
+            <div class="col form-group">
+              <label for="">Country</label>
+              <input placeholder="USA"   type="text" name="country" value="USA" class="form-control" required >
+            </div>
+            </div>
+          <!-- </div> -->
+    
+            
+            <div class="form-row">
+              <label for="">Order Note</label>
+              <textarea name="order_note" rows="2" class="form-control"></textarea>
+            </div>
+      </div>
+    </div> <!-- card.// -->
+    
+      </aside> <!-- col.// -->
+      <aside class="col-lg-6">
+    
+        <div class="card">
+        <div class="card-body">
+          <table class="table table-borderless table-shopping-cart">
+          <thead class="text-muted">
+          <tr class="small text-uppercase">
+            <th scope="col">Product</th>
+            <th scope="col" width="120">Quantity</th>
+            <th scope="col" width="120">Price</th>
+    
+          </tr>
+          </thead>
+          <tbody>
+    
+          {% for cart_item in cart_items %}
+          <tr>
+            <td>
+              <figure class="itemside align-items-center">
+                <div class="aside"><img src="{{ cart_item.product.image.url }}" class="img-sm"></div>
+                <figcaption class="info">
+                  <a href="{{ cart_item.product.get_url }}" class="title text-dark">{{ cart_item.product.product_name }}</a>
+                  <p class="text-muted small">
+                    {% if cart_item.variations.all %}
+                      {% for item in cart_item.variations.all %}
+                        {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                      {% endfor %}
+                    {% endif %}
+                  </p>
+                </figcaption>
+              </figure>
+            </td>
+            <td>
+              <!-- col.// -->
+                  <label for="">{{cart_item.quantity}}</label>
+            </td>
+            <td>
+              <div class="price-wrap">
+                <var class="price">$ {{ cart_item.sub_total }}</var>
+                <small class="text-muted"> $ {{ cart_item.product.price }} each </small>
+              </div> <!-- price-wrap .// -->
+            </td>
+    
+          </tr>
+          {% endfor %}
+    
+          </tbody>
+          </table>
+    
+          <button type="submit" name="submit" class="btn btn-primary btn-block">Place Order</button>
+          <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
+          </form>
+        </div> <!-- card-body.// -->
+        </div> <!-- card.// -->
+    
+    
+    </aside> <!-- col.// -->
+    
+    
+    </div> <!-- row.// -->
+    
+    <!-- ============================ COMPONENT 1 END .// ================================= -->
+    
+    </div> <!-- container .//  -->
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+</div>
+
+<script>
+  $( document ).ready(function() {
+    $('.default-address').hide();
+    $("#customSwitches").change(function() {
+      // if ($("#flexCheckIndeterminate").val() == 'on' ) {
+        
+        
+        $('.default-address').toggle();
+        $('.new-address').toggle();
+      // } else if($("#flexCheckIndeterminate").val() == 'off') {
+        // alert('off');
+        // alert('lol');
+        // $('.default-address').hide();
+        // $('.new-address').show();
+    
+  // }
+});
+});
+ 
+
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,124 @@
+/* Hide Radio button */
+.rate > input{
+    display: none;
+  }
+  
+  .rate{
+    display: inline-block;;
+    border: 0;
+  }
+  
+  .rate > label{
+    float: right;
+  }
+  
+  /* Showing the stars */
+  .rate > label:before{
+    display: inline-block;
+    font-size: 1.1rem;
+    font-family: FontAwesome;
+    content: "\f005";
+    margin:0;
+    padding:0.3rem .2rem;
+    cursor: pointer;
+  }
+  
+  /* Half star */
+  .rate .half:before{
+    content: "\f089";
+    position: absolute;
+    padding-right: 0;
+  }
+  
+  /* Click and hover */
+  input:checked ~ label, label:hover ~ label{
+    color: #ffb503;
+  }
+  
+  /* hover hightlight */
+  input:checked + label:hover, input:checked ~ label:hover,input:checked ~ label:hover ~ label,
+  label:hover ~ input:checked ~ label{
+    color: #cc9000;
+  }
+  
+  .rating-star i{
+    color: #ffb503 !important;
+  }
+ul.thumb {
+    margin: auto;
+    padding: 0;
+    float: left;
+}
+
+ul.thumb li {
+    list-style: none;
+    margin: 10px;
+}
+
+ul.thumb li img {
+    width: 80px;
+    height: 80px;
+    border: 1px solid grey;
+}
+
+i.fa.fa-shopping-cart:hover {
+  color: black;
+}
+
+.icon.icon-sm.rounded-circle.border.border-dark:hover{
+  color: black;
+}
+
+a.logout-text:hover {
+  color: red;
+}
+
+.logout-button{
+  font-weight: 400; 
+  border: 1px solid rgba(0, 0, 0, 0.125); 
+  color:#3167eb;; 
+  text-align: left; 
+  padding: 0.75rem 1.25rem;
+  background-color: white;
+}
+
+.logout-button:hover{
+  color: white;
+  
+}
+
+
+@media screen and (max-width: 579px) {
+  .brand-wrap{
+      position:fixed;
+      right: 0px;
+      top: 5px;
+  }
+  .category-wrap{
+    position: absolute;
+    top: 20%;
+    left:-95%;
+  }
+  .store-btn{
+    display: none;
+    width: 100%;
+  }
+  .search{
+    position: absolute;
+    top: 2rem;
+    width: 280%;
+  }
+  .header-main{
+    height: 8rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .category-category{
+    position: fixed;
+  }
+  .user-details{
+    position: relative;
+    width: max-content;
+  }
+}

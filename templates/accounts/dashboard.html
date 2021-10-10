@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<section class="section-conten padding-y bg-light">
+
+{% include 'includes/alerts.html' %}
+<div class="container">
+	<div class="row">
+	{% include 'includes/dashboard_sidebar.html' %}
+	<main class="col-md-9">
+		<article class="card" style="box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);">
+		<header class="card-header " >
+			<strong class="d-inline-block mr-3">Logged in as:</strong>
+			<span>{{user.full_name}}</span>
+		</header>
+		<div class="card-body">
+			<div class="row">
+
+			<div class="col-md-6">
+				<div class="card" style="text-align:center;">
+					<div class="card-body">
+						<h5 class="card-title">Total Orders</h5>
+						<h4>{{orders_count}}</h4>
+						<a href="{% url 'my_orders' %}">View Orders</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card" style="text-align:center;">
+					<div class="card-body">
+						{% if user.is_profile_completed %}
+						<img src="{{user.profile_picture.url}}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
+						{% else %}
+						<object data="https://romanroadtrust.co.uk/wp-content/uploads/2018/01/profile-icon-png-898-300x300.png" width="50" height="50"  type="image/png">
+						{% endif %}
+						
+					</object>
+						<p class="mb-0">{{user.email}}</p>
+						<p>{{user.phone_number}}</p>
+					</div>
+				</div>
+			</div>
+
+			</div> <!-- row.// -->
+		</div> <!-- card-body .// -->
+
+		{% if user.is_profile_completed %}
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="card" style="text-align: center;">
+					<div class="card-body">
+						<p style="font-weight: bold;">Contact Details</p>
+						<address>
+							{{user.address_line_1}},
+							{{user.city}}  <br>
+							{{user.state}}, {{user.country}}						
+						</address>
+
+					</div></div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		
+		</article> <!-- order-group.// -->
+	</main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+
+{% endblock %}

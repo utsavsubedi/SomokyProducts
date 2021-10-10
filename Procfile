@@ -1,0 +1,1 @@
+web: gunicorn greatcart.wsgi --log-file -
