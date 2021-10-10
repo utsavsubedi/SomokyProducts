@@ -141,7 +141,7 @@ MESSAGE_TAGS = {
 }
 #email_host configuration SMTP
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+EMAIL_PORT = 25
 EMAIL_HOST_USER = 'devdjango101@gmail.com'
 EMAIL_HOST_PASSWORD ='dibaedkboss3663#^^#'
 EMAIL_USE_TLS = True
