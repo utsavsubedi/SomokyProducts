@@ -76,10 +76,21 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd3r5al92sega23', 
+        'USER': 'avoorxrqpesbjt', 
+        'PASSWORD': '6959d12d7c1dd6ab722be6080ce14eff7fce44fafeae2bca504f95de458f4493',
+        'HOST': 'ec2-18-211-194-36.compute-1.amazonaws.com', 
+        'PORT': '5432',
     }
 }
 
