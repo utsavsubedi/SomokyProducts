@@ -15,7 +15,7 @@ class Category(models.Model):
     photo_url = models.TextField(default='https://loisirs.saint-georges.ca/wp-content/uploads/2021/03/Titre-Activites-CSLD.png')
 
     def save(self):
-        encodedString = base64.b64encode(self.photo.file.read())
+        encodedString = base64.b64encode(self.cat_image.file.read())
         data = {"key": '49d229e1d79585f1c66bde14cb6e33a7', "image": encodedString.decode("utf-8")}
         uploadedImageInfo = requests.post("https://api.imgbb.com/1/upload", data=data)
         jsonResponse = json.loads(uploadedImageInfo.text)
