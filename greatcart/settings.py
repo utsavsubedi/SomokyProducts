@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = 'django-insecure-@nk9arb2%i^0pt1&a9$c8-dv)ebvdga&vrbvb^ic02#(!=6lx5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['smoky-products.herokuapp.com','127.0.0.1',]
 
@@ -86,10 +86,10 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dd66rq5n0a0em9', 
-        'USER': 'xbxlsfhsqdecrw', 
-        'PASSWORD': 'bf8d055cb15e22f5e48dafcb405972ea50011ff96c39bb4722a5ce46320cbb65',
-        'HOST': 'ec2-52-21-252-142.compute-1.amazonaws.com', 
+        'NAME': 'dei259fa010nu9', 
+        'USER': 'jnbpqiuxpqfkvb', 
+        'PASSWORD': '67b2d6237a924407542f69912e5d6930ab3a2669c23616856cd86cc5b562259b',
+        'HOST': 'ec2-34-204-58-13.compute-1.amazonaws.com', 
         'PORT': '5432',
     }
 }
@@ -139,8 +139,9 @@ STATICFILES_DIRS = [
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 #media files configuration
+import os
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

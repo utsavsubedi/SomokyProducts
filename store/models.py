@@ -3,6 +3,10 @@ from django.urls import reverse
 from django.db import models
 from accounts.models import Account
 from django.db.models import Avg, Count
+import os
+import requests
+import json
+import base64
 
 # Create your models here.
 
@@ -17,6 +21,15 @@ class Product(models.Model):
     category        = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
+    photo_url = models.TextField(default='https://loisirs.saint-georges.ca/wp-content/uploads/2021/03/Titre-Activites-CSLD.png')
+
+    def save(self):
+        encodedString = base64.b64encode(self.photo.file.read())
+        data = {"key": '49d229e1d79585f1c66bde14cb6e33a7', "image": encodedString.decode("utf-8")}
+        uploadedImageInfo = requests.post("https://api.imgbb.com/1/upload", data=data)
+        jsonResponse = json.loads(uploadedImageInfo.text)
+        self.photo_url = jsonResponse["data"]["display_url"]
+        super().save()
 
     def averageReview(self):
         reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(average=Avg('rating'))
@@ -80,6 +93,16 @@ class ReviewRating(models.Model):
 class ProductGallery(models.Model):
     product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
     image = models.ImageField(upload_to = "store/products/", max_length = 255)
+    photo_url = models.TextField(default='https://loisirs.saint-georges.ca/wp-content/uploads/2021/03/Titre-Activites-CSLD.png')
+
+    def save(self):
+        encodedString = base64.b64encode(self.photo.file.read())
+        data = {"key": '49d229e1d79585f1c66bde14cb6e33a7', "image": encodedString.decode("utf-8")}
+        uploadedImageInfo = requests.post("https://api.imgbb.com/1/upload", data=data)
+        jsonResponse = json.loads(uploadedImageInfo.text)
+        self.photo_url = jsonResponse["data"]["display_url"]
+        super().save()
+
 
     def __str__(self):
         return self.product.product_name 
